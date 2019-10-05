@@ -74,11 +74,13 @@ router.put('/pokemon/:id', async (req, res) => {
 
     let p = await pokemon.getPokemon(id)
     p.type2 = req.body.type2
-    pokemon.update(p).then((result) => {
+
+    try {
+        var result = await pokemon.update(p)
         res.sendStatus(200)
-    }).catch((err) => {
+    } catch(err) {
         console.log(err)
-    })
+    }
 })
 
 router.delete('/pokemon/:id', (req, res) => {
